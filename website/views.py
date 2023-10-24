@@ -20,3 +20,9 @@ def about():
     data = request.form 
     print(data)
     return render_template("about.html")
+
+@views.route('/dashboard/')
+def dashboard():
+    data = request.form 
+    print(data)
+    return render_template("dashboard.html")
