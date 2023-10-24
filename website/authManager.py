@@ -25,6 +25,10 @@ def sign_up():
             pass
         elif email == email2:
             flash('backup email is the same as your main email!',category='warning')
+            data = request.form 
+            print(data)
+            flash('Account is being created!', category='success')
+            return render_template("home.html")
             pass
         elif len(username)< 2:
             flash('Username must be more than 2 characters!', category='error')
