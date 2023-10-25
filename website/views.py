@@ -12,7 +12,7 @@ views = Blueprint("views", __name__)
 public = Blueprint("public",__name__, template_folder='/public/')
 
 
-@views.route('/', methods=['GET', 'POST'])
+@views.route('/home/', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST': 
@@ -26,7 +26,7 @@ def home():
             db.session.commit()
             flash('Note added!', category='success')
 
-    return render_template("home.html", user=current_user)
+    return render_template("home.html",user=current_user)
 
 
 @views.route('/delete-note', methods=['POST'])
@@ -41,6 +41,19 @@ def delete_note():
 
     return jsonify({})
 
+
+@views.route('/portfolio/', methods=['GET', 'POST'])
+@login_required
+def portfolio():
+    
+    return render_template("portfolio.html", user=current_user)
+@views.route('/settings/', methods=['GET', 'POST'])
+@login_required
+def settings():
+    
+    return render_template("portfolio.html", user=current_user)
+    
+
 """
 @views.route("/home")
 def home():
@@ -50,6 +63,8 @@ def home():
 
 @views.route("/")
 def welcome():
+    userDetails=current_user
+    flash(f'Welcome {userDetails}')
     return render_template("welcome.html", user=current_user)
 
 
@@ -58,17 +73,17 @@ def welcome():
 def calculator():
     data = request.form
     print(data)
-    return render_template("calculator.html")
+    return render_template("calculator.html",user=current_user)
 
 @public.route("/support/", methods=['GET', 'POST'])
 def welcome():
-    return render_template("support.html")
+    return render_template("support.html",user=current_user)
 
 
 @public.route("/about/", methods=['GET', 'POST'])
 def about():
     data = request.form
     print(data)
-    return render_template("about.html")
+    return render_template("about.html",user=current_user)
 
 
