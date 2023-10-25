@@ -15,7 +15,7 @@
       crossorigin="anonymous"
     />
 
-    <title>{% block title %}Home{% endblock %}</title>
+    <title>{% block title %}Welcome{% endblock %}</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -29,27 +29,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" id="home" href="/">Home</a>
-          <a class="nav-item nav-link" id="portfolio" href="/portfolio">Portfolio</a>
-          <a class="nav-item nav-link" id="about" href="/about">About</a>
-          <a class="nav-item nav-link" id="support" href="/public/calculator">Calculator</a>
-          <a class="nav-item nav-link" id="about" href="/public/about">About</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% else %}
+
           <a class="nav-item nav-link" id="login" href="/login">Login</a>
           <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
           <a class="nav-item nav-link" id="calculator" href="/public/calculator">Calculator</a>
           <a class="nav-item nav-link" id="support" href="/public/support">Support</a>
           <a class="nav-item nav-link" id="about" href="/public/about">About</a>
-          {% endif %}
+         
         </div>
       </div>
     </nav>
-
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, message in messages %} {% if category ==
-    'error' %}
+    <h2 align="center"></h2>
+    <h2 align="center"></h2>
+    {% with messages = get_flashed_messages(with_categories=true) %} 
+    {% if messages %} {% for category, message in messages %} {% if category =='error' %}
     <div class="alert alert-danger alter-dismissable fade show" role="alert">
       {{ message }}
       <button type="button" class="close" data-dismiss="alert">
@@ -93,9 +86,10 @@
   });
   }
 </script>
+
 {% endblock %}
   </body>
-  <foot>
-    <h6 size=3 align="center"> Copywrite students@morrisville.edu 2023 </h6>
-  </foot> 
+<foot>
+  <h6 size=3 align="center"> Copywrite students@morrisville.edu 2023 </h6>
+</foot>
 </html>

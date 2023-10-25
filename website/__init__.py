@@ -1,46 +1,56 @@
 print('__init__: Starting')
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-
-
-
+from os import path
+from flask_login import LoginManager
 print('__init__: Creating db variables')
-
 DB_NAME = "liteDB_cita450.db"
 DataBase = f'sqlite:///{DB_NAME}'
-print(f'__init__: Check/Create db = {DataBase}')
 
 global db
 db = SQLAlchemy()
-
-
-
 def create_app():
-    from .authManager import auth
-    from .views import views
-     
     app = Flask(__name__)
-    
-
     app.config['SECRET_KEY'] = 'passmypasstopass'
     app.config['SQLALCHEMY_DATABASE_URI'] = DataBase 
-    
     db.init_app(app)
+    from .auth import auth
+    from .views import views, public
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-   # app.register_blueprint(test, url_prefix='/test/')
-    createdatabase()
+    app.register_blueprint(public, url_prefix='/public/')
+    from .models import User,Portfolio,Note
+    
+    with app.app_context():
+        db.create_all()
+        print(f'__init__: Check/Create db = {DataBase}')
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(int(id))
+
     return app
-def createdatabase():
-    from os import path
-    if not path.exists(DB_NAME):
-        from sqlalchemy import create_engine, text
-        print('__init__: Importing Classes')
-        engine = create_engine(DataBase,echo=True)
-        from website.models import Base
-        from sqlalchemy import create_engine
-        print("Creating tables")
-        Base.metadata.create_all(bind=engine)
-"""        db.create_Database(app)
-        print('__init__: Created Table')"""
+
+
+
+
+
+#def create_database(app): #ol db creation model
+#    if not path.exists(DB_NAME):
+#        
+#      db.metadata.create_all(bind=db)
+#      print('db created!')
+#
+#def createdatabase(): #old db creation model works will old app
+#
+#    if not path.exists(DB_NAME):
+#        from sqlalchemy import create_engine, text
+#        print('__init__: Importing Classes')
+#        engine = create_engine(DataBase,echo=True)
+#        from website.models import Base
+#        from sqlalchemy import create_engine
+#        print("Creating tables")
+#        Base.metadata.create_all(bind=engine)

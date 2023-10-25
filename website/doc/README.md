@@ -1,4 +1,17 @@
 
+# FlaskCdrx
+
+ --first web page
+
+# to RUN
+
+install :
+pip install flask
+pip install flask-login
+pip install flask-sqlalchemy
+
+# try this if you are having issus:pip install git+https://github.com/maxcountryman/flask-login.git  
+
 # Python 3 (python)
 
 Develop Python 3 applications.
@@ -23,8 +36,6 @@ pipx install prospector
 ```
 
 See the [pipx documentation](https://pipxproject.github.io/pipx/docs/) for additional information.
-
-
 
 ---
 
