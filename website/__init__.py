@@ -14,11 +14,12 @@ def create_app():
     app.config['SECRET_KEY'] = 'passmypasstopass'
     app.config['SQLALCHEMY_DATABASE_URI'] = DataBase 
     db.init_app(app)
-    from .auth import auth
+    from .auth import auth, authAdmin
     from .views import views, public
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(public, url_prefix='/public/')
+    app.register_blueprint(authAdmin, url_prefix='/admin/')
     from .models import User,Portfolio,Note
     
     with app.app_context():

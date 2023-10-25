@@ -30,6 +30,7 @@ def home():
 
 
 @views.route('/delete-note', methods=['POST'])
+@login_required
 def delete_note():  
     note = json.loads(request.data) # this function expects a JSON from the INDEX.js file 
     noteId = note['noteId']
@@ -41,33 +42,23 @@ def delete_note():
 
     return jsonify({})
 
-
 @views.route('/portfolio/', methods=['GET', 'POST'])
 @login_required
 def portfolio():
     
     return render_template("portfolio.html", user=current_user)
+
 @views.route('/settings/', methods=['GET', 'POST'])
 @login_required
 def settings():
     
-    return render_template("portfolio.html", user=current_user)
+    return render_template("settings.html", user=current_user)
     
-
-"""
-@views.route("/home")
-def home():
-    return render_template("home.html")
-
-"""
-
 @views.route("/")
 def welcome():
     userDetails=current_user
     flash(f'Welcome {userDetails}')
     return render_template("welcome.html", user=current_user)
-
-
 
 @public.route("/calculator/", methods=['GET', 'POST'])
 def calculator():
@@ -78,7 +69,6 @@ def calculator():
 @public.route("/support/", methods=['GET', 'POST'])
 def welcome():
     return render_template("support.html",user=current_user)
-
 
 @public.route("/about/", methods=['GET', 'POST'])
 def about():
