@@ -9,6 +9,7 @@ install :
 pip install flask
 pip install flask-login
 pip install flask-sqlalchemy
+ pip install git+https://github.com/maxcountryman/flask-login.git  
 
 # try this if you are having issus:pip install git+https://github.com/maxcountryman/flask-login.git  
 
