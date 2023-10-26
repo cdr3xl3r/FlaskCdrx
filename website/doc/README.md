@@ -6,6 +6,7 @@
 # to RUN as ADMIN from PowerShell
 
 install :
+pip install sqlalchemy
 pip install flask
 pip install flask-login
 pip install flask-sqlalchemy
