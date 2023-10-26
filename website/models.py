@@ -1,6 +1,16 @@
+#----------<MODELS.PY>------------------------------------------------------------------------------------#
+
+
+
+#----------<IMPORTS>------------------------------------------------------------------------------------#
+
+
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+
+#----------<VARS>------------------------------------------------------------------------------------#
+
 
 #global variables for multipliers
 global mult,dayM,weekM,monthM,quartM,yearM,termM
@@ -12,7 +22,10 @@ quartM = 4/termM
 halfM = 2/termM
 yearM = 1/termM
 sinM = 1/termM
+
 #User Classes
+
+#----------<LEDGER>------------------------------------------------------------------------------------#
 
 class Ledger(db.Model): #Budget
     
@@ -40,6 +53,7 @@ class Sal(Ledger,db.Model):# Salary (default monthly)
 class OthInc(Ledger,db.Model):#Other Income
     mult = sinM
 
+#----------<PORTFOLIO>------------------------------------------------------------------------------------#
 
 class Portfolio(db.Model ):
     id = db.Column(db.Integer, primary_key=True)
@@ -49,6 +63,7 @@ class Portfolio(db.Model ):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     portfolio = db.relationship("Ledger")
 
+#----------<NOTES>------------------------------------------------------------------------------------#
 
 class Note(db.Model ):
     id = db.Column(db.Integer, primary_key=True)
@@ -56,6 +71,7 @@ class Note(db.Model ):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
+#----------<USER>------------------------------------------------------------------------------------#
 
 class User(db.Model , UserMixin):# User class is the main accessor for the user data
     id = db.Column(db.Integer, primary_key=True)
@@ -68,8 +84,8 @@ class User(db.Model , UserMixin):# User class is the main accessor for the user 
     notes = db.relationship("Note")
 
 # Public Classes
-
-# Admin Classes
+#----------<FUNCTIONS>------------------------------------------------------------------------------------#
+# # Admin Classes
 default_password = 'scrypt:32768:8:1$OLPnOEPh0GATnZts$4b8465926146dcd808bad2e743dc36e63ee8004a7822253af99fe6a167bc240f04e3f0fd6488d1a306d761fc57f021e74f6aea2e013eb1705d36eb3655d888ee'
 class Admin(db.Model , UserMixin):
 
