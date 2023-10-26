@@ -20,8 +20,7 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(public, url_prefix='/public/')
     app.register_blueprint(authAdmin, url_prefix='/admin/')
-    from .models import User,Portfolio,Note
-    
+    from .models import User,Portfolio,Note,Ledger,Admin
     with app.app_context():
         db.create_all()
         print(f'__init__: Check/Create db = {DataBase}')
@@ -34,24 +33,3 @@ def create_app():
         return User.query.get(int(id))
 
     return app
-
-
-
-
-
-#def create_database(app): #ol db creation model
-#    if not path.exists(DB_NAME):
-#        
-#      db.metadata.create_all(bind=db)
-#      print('db created!')
-#
-#def createdatabase(): #old db creation model works will old app
-#
-#    if not path.exists(DB_NAME):
-#        from sqlalchemy import create_engine, text
-#        print('__init__: Importing Classes')
-#        engine = create_engine(DataBase,echo=True)
-#        from website.models import Base
-#        from sqlalchemy import create_engine
-#        print("Creating tables")
-#        Base.metadata.create_all(bind=engine)
