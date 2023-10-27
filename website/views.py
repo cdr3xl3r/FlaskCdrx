@@ -47,19 +47,51 @@ def welcome():
         email = request.form.get("email")
         username = request.form.get("username")
 
-        user_e = User.query.filter_by(email=email).first()
-        user_u = User.query.filter_by(username=username).first()
-        if user_e:
+        user_ee = User.query.filter_by(email=email).first()
+        user_eu = User.query.filter_by(email=username).first()
+        admin_ea = Admin.query.filter_by(email=email).first()
+        admin_ua = Admin.query.filter_by(email=username).first()
+        user_be = User.query.filter_by(backup_email=email).first()
+        user_bu = User.query.filter_by(backup_email=username).first()
+        user_ue = User.query.filter_by(username=email).first()
+        user_uu = User.query.filter_by(username=username).first()
+        if user_ee:
             flash("Email or username already taken.", category="error")
             return render_template("welcome.html", user=current_user)
-        if user_u:
+        if user_eu:
             flash("Email or username already taken.", category="error")
             return render_template("welcome.html", user=current_user)
+        if user_be:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if user_bu:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if user_ue:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if user_uu:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if admin_ea:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if admin_ua:
+            flash("Email or username already taken.", category="error")
+            return render_template("welcome.html", user=current_user)
+        if len(email) > 4:
+            if len(username) > 2:
+                flash(f"Email- {email} and Username- {username} are available.", category="success")
+                return render_template("sign_up.html", user=current_user)
+            else:
+                flash("Username must be more than 2 characters!", category="error")
+                return 
         else:
-            flash("Email and username are available.", category="success")
+            flash("Email must be more than 4 characters!", category="error")
             return render_template("welcome.html", user=current_user)
 
     flash(f"We hope you choose our app! {userDetails}")
+    
     return render_template("welcome.html", user=current_user)
 #
 #
@@ -122,3 +154,8 @@ def calculator():
 #
 #
 # ----------<END>------------------------------------------------------------------------------------#
+@public.route("/test/", methods=["GET", "POST"])
+def test():
+    data = request.form
+    print(data)
+    return render_template("test.html", user=current_user)
